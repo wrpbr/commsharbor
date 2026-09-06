@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "com.commsharbor/commsharbor",
+  "description": "Transactional e-mail and permission-based campaigns, multi-tenant, with a full audit trail.",
+  "version": "1.0.0",
+  "websiteUrl": "https://commsharbor.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://commsharbor.com/mcp"
+    }
+  ]
+}
