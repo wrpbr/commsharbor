@@ -1,7 +1,7 @@
 {
   "name": "commsharbor",
   "displayName": "CommsHarbor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Set up domain email, mailboxes and aliases, check DNS verification and read the email workspace through a remote MCP server.",
   "author": { "name": "CommsHarbor", "email": "contato@commsharbor.com", "url": "https://commsharbor.com" },
   "homepage": "https://commsharbor.com",
