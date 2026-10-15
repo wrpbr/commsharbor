@@ -1,84 +1,54 @@
-# CommsHarbor
+# CommsHarbor MCP server
 
-> Transactional e-mail and permission-based campaigns, with the audit trail. Invite-only today.
+CommsHarbor provides email for your domain, with webmail, IMAP and SMTP. Its remote MCP server helps an assistant
+read the email workspace, prepare domain setup, check DNS verification, and manage authorized mailboxes and aliases.
+This repository contains the connection settings and a user skill. The hosted service runs at
+[commsharbor.com](https://commsharbor.com).
 
-**Live:** https://commsharbor.com · **API index:** https://commsharbor.com/api/ · **OpenAPI:** https://commsharbor.com/openapi.json · **MCP server:** https://commsharbor.com/mcp · **Docs for agents:** https://commsharbor.com/llms.txt
+## Configure
 
-## What it does
-
-CommsHarbor is the part of an e-mail stack that products usually rebuild badly: sending with proof.
-
-What works today: transactional sends with idempotency keys, tracking and dead-letter replay; campaigns with consent and suppressions enforced on the send path; sending domains verified in SES and DNS; organizations with roles, scoped API keys, webhooks signed with HMAC-SHA256, an append-only audit log and a CRM for the tenant. What is closed: live checkout (the US$ 15 pass and the US$ 10 top-up answer 402 and charge nothing), a cap of 1,000 real recipients a month, nothing renews.
-
-## Quickstart (no account)
-
-Self-described API index:
-
-```bash
-curl -s https://commsharbor.com/api/
-```
-
-Remote MCP server card (transport, protocol, tool count):
-
-```bash
-curl -s https://commsharbor.com/mcp
-```
-
-Liveness and deployed commit:
-
-```bash
-curl -s https://commsharbor.com/api/health
-```
-
-## MCP server (remote, nothing to install)
-
-Streamable HTTP over the same public API. Every tool is a call on this API; `operationId` in the OpenAPI is the tool name. Server card: `GET https://commsharbor.com/mcp`.
-
-Claude Code:
-
-```bash
-claude mcp add --transport http commsharbor https://commsharbor.com/mcp
-```
-
-Cursor (`.cursor/mcp.json`):
+The server uses Streamable HTTP. No local program is required. Add this to `.vscode/mcp.json` for GitHub Copilot
+in VS Code:
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "commsharbor": {
-      "url": "https://commsharbor.com/mcp"
+      "type": "http",
+      "url": "https://commsharbor.com/mcp?checkout=site"
     }
   }
 }
 ```
 
-Main tools: `commsharbor_domains`, `commsharbor_domain_verify`, `commsharbor_domain_deliveries`, `commsharbor_delivery_get`, `commsharbor_crm_contacts_list`, `commsharbor_audit`, `commsharbor_api_key_create`.
+For Cursor, use the same entry under `mcpServers` in `.cursor/mcp.json`. For other clients, select an HTTP server
+and enter the URL above. The official registry entry is `com.commsharbor/commsharbor`.
 
-## Pricing
+## Use
 
-**Free.** A 30-day organization trial per verified owner and sending domain: one domain, 1,000 contacts, 5,000 sends, webhooks, API keys and the audit trail. Sign in with an e-mail code, or write to contato@commsharbor.com with your domain.
+Start with: "Show the available CommsHarbor email plans."
 
-**Paid.** Checkout is closed during the bootstrap: the US$ 15 pass and the US$ 10 top-up answer 402 and charge nothing.
+- `commsharbor_email_plans` reads the public plans and storage allowances.
+- `commsharbor_email_workspace` reads an authorized organization's workspace.
+- `commsharbor_email_domain_setup` checks a domain before purchase without creating a charge.
+- Other authorized tools create mailboxes and aliases, verify domains and read setup jobs.
 
-## What it is not
+Public discovery requires no account. Workspace operations require organization access. Use an organization API
+key through the client's secret storage and the `X-Api-Key` header. Supply the `organization_id` requested by the
+tool. Never commit a key to the client configuration. Read the [API contract](https://commsharbor.com/openapi.json)
+for each tool's required fields and permissions.
 
-Not a newsletter tool for purchased lists: permission-based sending is a term of use, not a setting.
+## Access and cost
 
-## Files in this repository
+Create the account and select the email service on the website. The receive-only trial and sending plans have
+different permissions. The connection above disables payment transactions through the assistant. Mailbox passwords
+and message content are not returned by workspace reads. Campaigns and transactional sending APIs are not part of
+the current offer.
 
-| | |
-|---|---|
-| `README.md` | this page |
-| `openapi.json` | OpenAPI 3 document; `operationId` = MCP tool name |
-| `llms.txt` | short guide for agents (endpoints, auth, pricing, MCP) |
-| `llms-full.txt` | full reference: params, body, response field by field, errors (when published) |
-| `apis.json` | APIs.json index (APIs.io) |
-| `mcp/server.json` | manifest published in the Official MCP Registry (`com.commsharbor/commsharbor`) |
-| `okf/` | OKF bundle: markdown with front-matter (index, about, API, FAQ) |
-| `examples/` | `curl.sh` and `python.py` with the free calls above |
+## Documentation and support
 
-## About this repository
+- [Setup and API documentation](https://commsharbor.com/developers)
+- [Agent reference](https://commsharbor.com/llms.txt)
 
-This repository mirrors the public, machine-readable surfaces of CommsHarbor as served at https://commsharbor.com: the OpenAPI document, the `llms.txt` guide, the MCP registry manifest, the OKF bundle and the APIs.json index. The product itself is not open source; the mirror exists so the API and the MCP server can be found, read and linked from here. Files are regenerated from the live surfaces (last sync: 2026-09-05); if something here disagrees with the site, the site is right.
-
-Issues and suggestions are welcome here. Contact: contato@commsharbor.com. Author: Wendel ([@wrpbr](https://github.com/wrpbr)).
+Send support requests to contato@commsharbor.com or open an issue here. The files in this repository use the MIT-0
+license. The hosted service has separate terms. Its source code is not included.

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "commsharbor": {
+      "type": "http",
+      "url": "https://commsharbor.com/mcp?checkout=site"
+    }
+  }
+}

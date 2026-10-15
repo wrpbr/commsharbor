@@ -1,0 +1,16 @@
+{
+  "name": "commsharbor",
+  "description": "Set up domain email, mailboxes and aliases, check DNS verification and read the email workspace through a remote MCP server.",
+  "owner": {
+    "name": "CommsHarbor",
+    "email": "contato@commsharbor.com",
+    "url": "https://commsharbor.com"
+  },
+  "plugins": [
+    {
+      "name": "commsharbor",
+      "source": "./",
+      "category": "data"
+    }
+  ]
+}
