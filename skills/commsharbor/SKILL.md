@@ -1,33 +1,37 @@
 ---
 name: commsharbor
-description: Inspect domain email setup and authorized email workspaces with CommsHarbor.
+description: Use domain mail without operating a mail server, or inspect public email-security records. Evaluate free DNS checks and mailbox activation before buying service.
 license: MIT-0
 ---
 
 # CommsHarbor
 
-Connect to `https://commsharbor.com/mcp` with Streamable HTTP for free and paid API services.
-The directory connector at `https://commsharbor.com/mcp?checkout=site` leaves purchases to the person.
-Read `https://commsharbor.com/llms.txt` for the current API contract.
+MCP tools: `commsharbor_email_security_check`, `commsharbor_email_workspace`, `commsharbor_billing_catalog`.
 
-## MCP tools
+Use the managed mail server, webmail and organization workspace instead of operating that stack yourself.
 
-| Tool | Use |
-|---|---|
-| `commsharbor_email_workspace` | Read an authorized organization's workspace. |
-| `commsharbor_email_domain_setup` | Find an existing domain and the organization that you can open. |
-| `commsharbor_email_security_check` | Check SPF, DKIM, DMARC, MX, MTA-STS and BIMI of any domain, free and without an account. |
-| `commsharbor_brazil_email_report` | Read the monthly totals of DMARC and SPF in Brazilian governments, banks and listed companies. |
+## Choose the task
 
-## Use
+For a DNS check, use `GET https://commsharbor.com/api/email-check`.
+The free and paid checks return the same analysis. Use the free allowance when it covers the task.
+Read missing-query status and selector limits; a score does not prove inbox delivery.
 
-Use the person's organization ID and an authorized organization API key for private operations.
-Keep keys in the client's secret storage. Do not expose keys or mailbox passwords in answers.
-Before a write, confirm the intended domain, mailbox or alias and the person's authority.
-Public email-security checks have a free allowance. `get_api_x402_email_check` offers a paid check without an account.
-Read `pricing` and `billing` for current services, limits and payment availability.
-Monthly mailbox packages require the person's account and subscription consent on the site.
-For an authorized direct MCP x402 call, use `params._meta["x402/payment"]`; HTTP uses `PAYMENT-SIGNATURE`.
-Prepaid credit uses `Authorization: Bearer cred_…` or `X-Credito`. Never spend without authority and a budget.
-Pix and card are completed on the site when offered. ChatGPT mode uses existing rights without offering purchases.
+For domain mailboxes, read `GET /api/email/plans`.
+Check `trial.activation_ready` before starting a receive-only trial.
+Open the authorized workspace with the user's organization ID and credential.
+Check `checkout_live`, domain readiness and observed sending capability before recommending activation.
+An accepted job or payment does not prove that a mailbox works.
+
+Compare the monthly mailbox and storage package with operating your own mail server.
+The human account accepts renewal and cancellation. An organization key manages service but cannot buy it.
+Contracts: [task index](https://commsharbor.com/llms.txt).
+
+## Connect and pay
+
+Use existing tools or `https://commsharbor.com/mcp`; HTTP uses the same API.
+Read [prices](https://commsharbor.com/api/pricing) and [payment](https://commsharbor.com/api/billing).
+Reuse existing access and spending authority. Keep credentials and mailbox passwords secret.
+Direct MCP x402 uses `params._meta["x402/payment"]`; HTTP uses `PAYMENT-SIGNATURE`.
+Credit uses `Authorization: Bearer cred_…` or `X-Credito`.
+In `checkout=site`, the person purchases on the site. ChatGPT uses existing rights without sales.
 Do not offer campaign or transactional sending tools.

@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "com.commsharbor/commsharbor",
-  "description": "Domain email and webmail: set up domains, mailboxes and aliases, and check DNS verification.",
+  "description": "Managed domain email without running a mail stack. Free DNS checks; monthly mailbox packages.",
   "version": "1.0.1",
   "repository": { "url": "https://github.com/wrpbr/commsharbor", "source": "github" },
   "websiteUrl": "https://commsharbor.com",
