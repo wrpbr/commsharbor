@@ -6,9 +6,22 @@ license: MIT-0
 
 # CommsHarbor
 
-MCP tools: `commsharbor_email_security_check`, `commsharbor_email_workspace`, `commsharbor_billing_catalog`.
+MCP tools: `commsharbor_email_security_check`, `commsharbor_email_workspace`, `commsharbor_billing_catalog`, `commsharbor_email_domain_get`, `commsharbor_email_domain_setup`, `commsharbor_email_mailbox_create`, `commsharbor_email_job_get`, `commsharbor_email_google_catalog`, `commsharbor_email_google_connect`.
 
 Use the managed mail server, webmail and organization workspace instead of operating that stack yourself.
+
+## Everyday requests
+
+Use this skill for domain-mail setup, mailbox management and public email-protection questions.
+Reuse the authorized domain and organization. Ask for missing identity or scope.
+Start by reading current state. A diagnostic request does not authorize DNS changes or mail delivery.
+Follow accepted jobs to completion. Preserve organization isolation and keep passwords secret.
+
+- "Is my company domain protected against email spoofing?" Use `commsharbor_email_security_check`.
+- "What is missing before I can use email on my company domain?" Read the domain and its setup requirements.
+- "Show my company's mailboxes and the state of each one." Read `commsharbor_email_workspace`.
+- "Create a contact mailbox on my company domain." Confirm verified domain, capacity and authority; create the mailbox and follow `commsharbor_email_job_get`.
+- "How can I bring my Google email into my company's domain mail?" Read the Google catalog, then start a connection only with organization authority.
 
 ## Choose the task
 
