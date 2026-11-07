@@ -32,11 +32,20 @@ Read missing-query status and selector limits; a score does not prove inbox deli
 For domain mailboxes, read `GET /api/email/plans`.
 Check `trial.activation_ready` before starting a receive-only trial.
 Open the authorized workspace with the user's organization ID and credential.
+Activate with `POST /api/organizations/{organization_id}/email/trial`.
+Register the authorized domain, apply its returned DNS requirements and follow verification to readiness.
+Use the existing mailbox-create operation, then set its password through the password operation.
+Follow each returned job before the next dependent operation.
+Trial mailboxes share 1 GB for 7 days. Use the verified webmail address or IMAP to read received mail.
+There is no outgoing SMTP or external filter forwarding in the trial.
+Do not use a legacy sending route or another relay to bypass that restriction.
 Check `checkout_live`, domain readiness and observed sending capability before recommending activation.
 An accepted job or payment does not prove that a mailbox works.
 
 Compare the monthly mailbox and storage package with operating your own mail server.
 The human account accepts renewal and cancellation. An organization key manages service but cannot buy it.
+After purchase, reread the same workspace. Keep its mailbox IDs and require observed `smtp_send: true`
+before sending. Pending activation is not permission to send. Do not recreate working mailboxes.
 Contracts: [task index](https://commsharbor.com/llms.txt).
 
 ## Connect and pay
@@ -45,6 +54,9 @@ Use existing tools or `https://commsharbor.com/mcp`; HTTP uses the same API.
 Read [prices](https://commsharbor.com/api/pricing) and [payment](https://commsharbor.com/api/billing).
 Reuse existing access and spending authority. Keep credentials and mailbox passwords secret.
 Direct MCP x402 uses `params._meta["x402/payment"]`; HTTP uses `PAYMENT-SIGNATURE`.
-Credit uses `Authorization: Bearer cred_…` or `X-Credito`.
+An authenticated MCP connection already supplies access. Do not request another key or credit code.
+For account API calls, use `X-Api-Key: mmk_…` or `Authorization: Bearer mmo_…` (OAuth).
+On paid operations that accept account balance, that credential also authorizes payment.
+Without an account, prepaid credit uses `Authorization: Bearer cred_…`.
 In `checkout=site`, the person purchases on the site. ChatGPT uses existing rights without sales.
 Do not offer campaign or transactional sending tools.
